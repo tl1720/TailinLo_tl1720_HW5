@@ -1,0 +1,118 @@
+\documentclass [12pt] {article}
+\usepackage {algorithm, algpseudocode}
+\usepackage {algpseudocode}
+\usepackage {amsmath}
+\usepackage {amstext}
+\usepackage {amssymb}
+\usepackage {amsfonts}
+\usepackage {mathtools}
+\usepackage{tikz,pgfplots}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\newcommand{\argmin}{\arg\!\min}
+\newcommand{\argmax}{\arg\!\max}
+
+\begin {document}
+\title{Homework 5}
+\date{}
+\author{Tailin Lo tl1720 N15116873}
+\maketitle
+
+\section{section 2.1.1}
+(1) prove huberized hinge loss is differentiable. \\
+let $\mu = yt$, rewrite the equation,
+\begin{equation}
+l_{huber-hinge} = \begin{dcases*}
+				0 \text{ if $\mu >$ 1+h}  \\
+				\frac{(1+h-\mu)^2}{4h} \text{ if $|1-\mu| \leq $ h} \\
+				1-\mu \text{ if $\mu <$ 1-h }
+			   \end{dcases*}
+\end{equation}
+Differentiate each segment, we can get,
+\begin{equation}
+\frac{dl_{huber-hinge}}{d\mu} = \begin{dcases*}
+				0 \text{ if $\mu >$ 1+h}  \\
+				\frac{-(1+h-\mu)}{2h} \text{ if $|1-\mu| \leq $ h} \\
+				-1 \text{ if $\mu <$ 1-h }
+			   \end{dcases*}
+\end{equation}
+Now, consider the margin  \\
+(i) $\mu = 1-h$ \\
+the left of the derivative is -1 \\
+the right of the derivative is $\frac{-(1+h-(1-h))}{2h} = -1$ \\
+(ii) $\mu = 1+h$ \\
+the left of the derivative is  $\frac{-(1+h-(1+h))}{2h} = 0$ \\
+the right of the derivative is 0 \\
+Thus, the derivative is continuous in R \\
+Proof. \\
+
+(2) write the analytic expression of the gradient of the huberized hinge loss \\
+\begin{equation}
+\frac{dl_{huber-hinge}}{d\mu} = \begin{dcases*}
+				0 \text{ if $\mu >$ 1+h}  \\
+				\frac{-(1+h-\mu)}{2h} \text{ if $|1-\mu| \leq $ h} \\
+				-1 \text{ if $\mu <$ 1-h }
+			   \end{dcases*}
+\end{equation}
+
+(3) give an upper bound of Lipschitz-continuous
+From the above, it's easy to observe the largest derivative is 0. From the definition of an upper bound of Lipschitz-continuous, 
+$|f(x) - f(y)| \leq c|x-y| => \frac{|f(x) - f(y)|}{|x-y|} \leq c$, we can say that the upper bound of Lipschitz-continuous is actually find the 
+upper bound of the derivative. And because the largest derivative is 0, the upper bound of Lipschitz-continuous is 0. Thus, the gradient 
+of huberized hinge loss is continue over R.
+
+\section{section 2.1.2}
+$F(\omega) = \omega^T \cdot \omega + \frac{C}{n} \bf{1} \cdot \bf{L}$ where $\bf{1}, \bf{L} \in R_{n \times 1}$ , L is \\ 
+$ [L_1, L_2, ..., L_n] =  [l_{huber-hinge}(y_1, \omega^Tx_1), ... , l_{huber-hinge}(y_n, \omega^Tx_n) ]$. \\
+$\nabla_{\omega} F = (\frac{dF}{d \omega_1}, \frac{dF}{d \omega_2}, ... , \frac{dF}{d \omega_{d+1}}) \\ = 
+(2\omega_1+ \frac{C}{n} \textbf{1} \cdot \nabla_{\omega_1} \textbf{L}, 2\omega_2+ \frac{C}{n} \textbf{1} \cdot \nabla_{\omega_2}  \textbf{L}, ... , 2\omega_{d+1}+\frac{C}{n} \textbf{1} \cdot \nabla_{\omega_{d+1}} \textbf{L}) \\ = 
+2\omega + \frac{C}{n} \textbf{Q} \cdot \textbf{1} $, where \textbf{Q} = 
+\[
+\begin{bmatrix}
+    \nabla_{\omega_1}L_1 &  \nabla_{\omega_1}L_2 &  \nabla_{\omega_1}L_3 & \dots  &  \nabla_{\omega_1}L_n \\
+    \nabla_{\omega_2}L_1 &  \nabla_{\omega_2}L_2 &  \nabla_{\omega_2}L_3 & \dots  &  \nabla_{\omega_2}L_n \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+   \nabla_{\omega_{d+1}}L_1 &  \nabla_{\omega_{d+1}}L_2 &  \nabla_{\omega_{d+1}}L_3 & \dots  &  \nabla_{\omega_{d+1}}L_n 
+\end{bmatrix}
+\]
+= \\
+\[
+\begin{bmatrix}
+    \nabla_{\omega}L_1 &  \nabla_{\omega}L_2 &  \nabla_{\omega}L_3 & \dots  &  \nabla_{\omega}L_n \\
+\end{bmatrix}
+\]
+\\
+\begin{equation}
+\nabla_{\omega} L_i(\textbf{x},y) = \begin{dcases*}
+				\textbf{0} \text{ , if $y(\omega^T \cdot \textbf{x}) >$ 1+h}  \\
+				\frac{(1+h-y(\omega^T \cdot \textbf{x}))}{2h} \times (-y\textbf{x}) \text{ , if $|1-y(\omega^T \cdot \textbf{x})| \leq $ h} \\
+				-y\textbf{x} \text{ , if $y(\omega^T \cdot \textbf{x}) <$ 1-h }
+			   \end{dcases*}
+\end{equation}
+
+\section{section 3}
+In this section, we have two parts needed to be implemented, i.e., one is mini-batch kmeans, and the other is VLAD representation. \\
+In MiniBatchKMeans.py, there are two simple tests for this algorithm. The first test is check whether the algorithm can have precise centroids. 
+The second test is to sweep the minimum batch size versus objection value. This test can decide what the mini-batch is.  \\
+In the folder of project, the file mainly is used as the test of VALD. According to the paper, we can implement a simple VLAD extraction and test
+function. The prediction still used the KNN algorithm to compare with the result of the last assignment. The following is the result, \\
+
+\begin{tikzpicture}
+\begin{axis}[ 
+xlabel = Neighbor Number,
+ylabel = Accuracy,
+]
+\addplot table [x = NeighborNumber , y = Accuracy] {cluster_16.txt};
+\addlegendentry{Cluster Num 16}
+\addplot table [x = NeighborNumber , y = Accuracy] {cluster_32.txt};
+\addlegendentry{Cluster Num 32}
+\addplot table [x = NeighborNumber , y = Accuracy] {cluster_64.txt};
+\addlegendentry{Cluster Num 64}
+\end{axis}
+\end{tikzpicture}
+
+
+\end {document}
