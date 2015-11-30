@@ -1,3 +1,13 @@
+'''
+
+Homework 5
+
+Name     : Tailin Lo
+NetID    : tl1720
+N number : N15116873
+Email    : tl1720@nyu.edu
+
+'''
 import matplotlib.pyplot as plt
 import numpy as np
 import time

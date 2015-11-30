@@ -1,4 +1,13 @@
+'''
 
+Homework 5
+
+Name     : Tailin Lo
+NetID    : tl1720
+N number : N15116873
+Email    : tl1720@nyu.edu
+
+'''
 from sklearn import preprocessing
 from sklearn.cross_validation import train_test_split
 from sklearn import svm
