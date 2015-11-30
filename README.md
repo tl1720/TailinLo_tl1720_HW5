@@ -4,3 +4,5 @@
 ### Run MiniBatchKMeans.py (mini-batch kmeans)
 ### Run ./project/run_script.py (vlad)
 ### HW5.pdf (a simple document)
+
+## Note: most part of VLAD are contributed from ChiaLing Wang
