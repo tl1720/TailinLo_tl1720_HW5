@@ -96,7 +96,7 @@ def load_data(filelist , patch):
 def load_sig_data(filename , patch):
     file_target = []
     record = dict([('data', []), ('target', []), ('filename', [])])
-    new_name = filename.split('/')[3].split('_')[0]
+    new_name = filename.split('/')[2].split('_')[0]
     sample = int(re.findall(r'\d+', new_name)[0])
         #print(sample)
     read_file = []

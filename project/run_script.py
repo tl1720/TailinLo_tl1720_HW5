@@ -10,7 +10,7 @@ import fetch_file
 ###################################################
 # fetch all the file in the directory path  defined#
 pwd = os.pardir;
-accessPath = "../../patch_database_non_normalize"
+accessPath = "../patch_database_non_normalize"
 filelist = []
 print(accessPath)
 
@@ -53,7 +53,7 @@ temp = []
 n = 3*3
 num_data = 10000
 #clusters = [16,32,64,128]
-clusters = [64]
+clusters = [16]
 #cluster = 16
 #centroid_file = r"%s\%dfeature_%d.txt" %(pwd ,  cluster , num_data);
 for cluster in clusters:
