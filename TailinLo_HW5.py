@@ -342,7 +342,7 @@ for k in [2*i for i in range(12)] :
 	step_list.append(mysvm.step_size)
 	obj_list.append(mysvm.obj_record)
 # end for
-#show_obj_versus_iteration(step_list, obj_list)
+show_obj_versus_iteration(step_list, obj_list)
 
 '''
 
@@ -370,7 +370,7 @@ for iter in range(1,21) :
 	train_error_list.append(train_error_rate)
 	test_error_list.append(test_error_rate)
 # end for
-#show_train_test_error_versus_iteration(train_error_list, test_error_list)
+show_train_test_error_versus_iteration(train_error_list, test_error_list)
 
 
 '''
@@ -443,7 +443,7 @@ print("Execution Time(backtracking line search): ",finish-start," sec")
 	   have the same error rate, i.e 24.6%
 
 '''
-'''
+
 min_C1, min_C2, min_error1, min_error2 = grid_search_for_C([2**i for i in range(-10,10) ], train_X, train_y, 10, mysvm)
 print(min_C1," , ",min_C2," , ",min_error1," , ",min_error2)
 
@@ -461,7 +461,7 @@ clf.fit(train_X, train_y)
 predict_test = clf.predict(test_X)
 test_error_rate, test_error_num = calc_error(predict_test, test_y)
 print("-- Sklearn SVM -- optima C: ",min_C2," , general error rate: ",test_error_rate," , general error number",test_error_num)
-'''
+
 
 
 ################################################################
@@ -487,10 +487,7 @@ train_XX, train_yy, validation_XX, validation_yy = gen_validation_data(train_X, 
 
 	1. excution time is 313.1292259693146 sec
 
-	Note: this part is commented because long time execution, if users want to test, just uncomment it
 
-'''
-# user can uncomment the following code
 '''
 mysvm = SVM.MySVM(alpha, beta, C, h, max_iter, step_size, rnd_number, train_XX, train_yy, validation_XX, validation_yy, gradient_error, improve_ratio)
 mysvm.max_iter = 100
@@ -498,7 +495,7 @@ start = time.time()
 mysvm.my_gradient_decent(3)
 finish = time.time()
 print("Gradient Decent Big Data Execution Time: ",finish-start," sec")
-'''
+
 
 '''
 
@@ -518,7 +515,7 @@ print("Gradient Decent Big Data Execution Time: ",finish-start," sec")
 
 
 '''
-'''
+
 subsample_size = 500
 mysvm = SVM.MySVM(alpha, beta, C, h, max_iter, step_size, rnd_number, train_XX[0:subsample_size], train_yy[0:subsample_size], \
 	              validation_XX, validation_yy, gradient_error, improve_ratio)
@@ -541,7 +538,7 @@ for eta0 in [1.0, 1.25, 1.5] :
 #finish = time.time()
 print("Execution Time: ",finish-start," sec")
 show_obj_versus_iteration_2(para_list, obj_list)
-'''
+
 
 '''
 
@@ -549,12 +546,16 @@ show_obj_versus_iteration_2(para_list, obj_list)
 
 	Grid Search for different n, d, C
 
+	Summary:
+
+
 '''
 group_distance = 1
 unbalance_ratio = 0.6
 #for n in [1e3, 1e4, 1e5] :
 count = 0
-for n in [1e4] :
+
+for n in [1e3, 1e4, 1e5] :
 	#for dim in [2**i for i in range(1,11)] :
 	#for dim in [2**i for i in [1, 2, 6, 8 ,10]] :
 	for dim in [2**i for i in [1]] :
